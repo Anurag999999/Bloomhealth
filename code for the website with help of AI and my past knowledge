@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bloomwell — Nourish Your Mind, Body & Spirit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage: #7EB5A6; --sage-light: #A8C5A0; --earth: #D4B896;
+      --cream: #F7F3EE; --deep: #2C3E35; --mid: #5a6b62; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--deep); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--sage-light); border-radius: 3px; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(247,243,238,0.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(126,181,166,0.2); display: flex; align-items: center; justify-content: space-between; padding: 0 6%; height: 64px; }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; letter-spacing: 0.04em; color: var(--deep); }
+    .logo span { color: var(--sage); font-style: italic; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--mid); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 300; transition: color 0.3s; padding-bottom: 2px; border-bottom: 1px solid transparent; }
+    .nav-links a:hover { color: var(--sage); border-bottom-color: var(--sage); }
+    .nav-cta { background: var(--sage); color: #fff; padding: 8px 22px; border-radius: 30px; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400; border: none; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+    .nav-cta:hover { background: #6aa394; transform: translateY(-1px); }
+
+    /* HERO */
+    #home { min-height: 100vh; display: flex; align-items: center; padding: 80px 6% 60px; background: linear-gradient(135deg, #F7F3EE 0%, #EDF4F1 55%, #F0EDE8 100%); position: relative; overflow: hidden; }
+    .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; }
+    .orb1 { top: 8%; right: 4%; width: 420px; height: 420px; background: radial-gradient(circle, rgba(126,181,166,0.13) 0%, transparent 70%); }
+    .orb2 { bottom: 4%; right: 22%; width: 240px; height: 240px; background: radial-gradient(circle, rgba(168,197,160,0.18) 0%, transparent 70%); }
+    .orb3 { top: 35%; right: 12%; width: 520px; height: 520px; border: 1px solid rgba(126,181,166,0.13); background: transparent; }
+    .hero-content { max-width: 680px; }
+    .eyebrow { font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--sage); margin-bottom: 20px; font-weight: 300; animation: riseIn 1s 0.1s both; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.08; color: var(--deep); margin-bottom: 28px; animation: riseIn 1s 0.25s both; }
+    h1 em { color: var(--sage); font-style: italic; }
+    .hero-sub { font-size: 0.95rem; line-height: 1.85; color: var(--mid); max-width: 460px; margin-bottom: 40px; font-weight: 300; animation: riseIn 1s 0.45s both; }
+    .btn-group { display: flex; gap: 14px; flex-wrap: wrap; animation: riseIn 1s 0.6s both; }
+    .btn-primary { background: var(--deep); color: var(--cream); padding: 14px 36px; border-radius: 40px; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.3s, transform 0.2s; font-family: 'Jost', sans-serif; }
+    .btn-primary:hover { background: #3d5548; transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--deep); padding: 14px 36px; border-radius: 40px; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid rgba(44,62,53,0.28); cursor: pointer; transition: border-color 0.3s, transform 0.2s; font-family: 'Jost', sans-serif; }
+    .btn-ghost:hover { border-color: var(--sage); color: var(--sage); transform: translateY(-2px); }
+    .floating-card { position: absolute; right: 7%; top: 50%; transform: translateY(-50%); width: 300px; height: 300px; border-radius: 50%; background: linear-gradient(135deg, rgba(126,181,166,0.25), rgba(168,197,160,0.15)); border: 1px solid rgba(126,181,166,0.3); box-shadow: 0 0 90px rgba(126,181,166,0.18); display: flex; align-items: center; justify-content: center; flex-direction: column; animation: floatUp 6s ease-in-out infinite; }
+    .floating-card .icon { font-size: 5rem; }
+    .floating-card p { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--mid); font-size: 1rem; margin-top: 10px; }
+
+    /* STATS */
+    .stats-bar { background: var(--white); padding: 40px 6%; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 24px; border-bottom: 1px solid rgba(126,181,166,0.12); }
+    .stat { text-align: center; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300; color: var(--sage); line-height: 1; }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 300; margin-top: 6px; }
+
+    /* QUOTE */
+    .quote-section { background: var(--deep); padding: 56px 8%; text-align: center; }
+    .quote-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-weight: 300; font-style: italic; line-height: 1.65; color: var(--cream); max-width: 720px; margin: 0 auto 14px; transition: opacity 0.5s, transform 0.5s; }
+    .quote-author { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); font-weight: 300; }
+    .quote-dots { display: flex; gap: 8px; justify-content: center; margin-top: 22px; }
+    .qdot { height: 8px; border-radius: 4px; background: rgba(247,243,238,0.25); cursor: pointer; transition: all 0.4s; width: 8px; }
+    .qdot.active { background: var(--sage); width: 24px; }
+
+    /* PILLARS */
+    #mindfulness { padding: 100px 6%; background: var(--cream); }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header .eyebrow { animation: none; }
+    .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; color: var(--deep); }
+    .section-header h2 em { color: var(--sage); }
+    .section-header p { font-size: 0.9rem; color: var(--mid); font-weight: 300; line-height: 1.8; max-width: 560px; margin: 16px auto 0; }
+    .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .pillar-card { background: var(--white); border-radius: 20px; padding: 36px; border: 1px solid rgba(126,181,166,0.15); box-shadow: 0 4px 20px rgba(44,62,53,0.06); transition: transform 0.4s cubic-bezier(.23,1.02,.64,1), box-shadow 0.4s; cursor: pointer; }
+    .pillar-card:hover { transform: translateY(-10px); box-shadow: 0 28px 52px rgba(44,62,53,0.13); }
+    .pillar-icon { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 20px; }
+    .pillar-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.65rem; font-weight: 400; color: var(--deep); margin-bottom: 12px; }
+    .pillar-card p { font-size: 0.87rem; line-height: 1.8; color: var(--mid); font-weight: 300; margin-bottom: 18px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { padding: 4px 12px; border-radius: 20px; font-size: 0.68rem; letter-spacing: 0.08em; font-weight: 400; }
+
+    /* BREATHWORK */
+    #movement { padding: 100px 6%; background: linear-gradient(135deg, #EDF4F1, #F0EDE8); }
+    .breath-layout { display: flex; align-items: center; gap: 8%; flex-wrap: wrap; }
+    .breath-copy { flex: 1 1 300px; }
+    .breath-copy h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--deep); margin-bottom: 20px; }
+    .breath-copy h2 em { color: var(--sage); }
+    .breath-copy p { font-size: 0.9rem; line-height: 1.85; color: var(--mid); font-weight: 300; margin-bottom: 16px; }
+    .breath-tips { list-style: none; margin-bottom: 32px; }
+    .breath-tips li { font-size: 0.85rem; color: var(--mid); font-weight: 300; padding: 6px 0 6px 20px; position: relative; line-height: 1.6; }
+    .breath-tips li::before { content: '✦'; position: absolute; left: 0; color: var(--sage); font-size: 0.55rem; top: 10px; }
+    .breath-btn { background: var(--sage); color: #fff; padding: 14px 36px; border-radius: 40px; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'Jost', sans-serif; transition: background 0.3s, transform 0.2s; }
+    .breath-btn:hover { background: #6aa394; transform: translateY(-2px); }
+    .breath-btn.pause { background: var(--mid); }
+    .breath-visual { flex: 0 0 300px; display: flex; align-items: center; justify-content: center; }
+    .breath-rings { position: relative; width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; }
+    .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(126,181,166,0.45); transition: width 4s cubic-bezier(0.4,0,0.2,1), height 4s cubic-bezier(0.4,0,0.2,1); }
+    .ring1 { width: 90px; height: 90px; background: rgba(126,181,166,0.12); }
+    .ring2 { width: 170px; height: 170px; border-color: rgba(126,181,166,0.28); }
+    .ring3 { width: 250px; height: 250px; border-color: rgba(126,181,166,0.12); }
+    .breath-label { position: absolute; text-align: center; z-index: 2; }
+    .breath-label p { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: var(--deep); }
+    .breath-label span { font-size: 2.2rem; color: var(--sage); font-weight: 300; display: block; }
+
+    /* PRACTICES */
+    #nutrition { padding: 100px 6%; background: var(--white); }
+    .practices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .practice-card { background: var(--cream); border-radius: 16px; padding: 28px; border: 1px solid rgba(126,181,166,0.12); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .practice-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(44,62,53,0.1); }
+    .practice-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+    .practice-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .practice-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+    .practice-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--deep); }
+    .practice-time { font-size: 0.7rem; color: var(--sage); letter-spacing: 0.06em; flex-shrink: 0; margin-left: 8px; }
+    .practice-desc { font-size: 0.84rem; line-height: 1.75; color: var(--mid); font-weight: 300; margin-bottom: 14px; }
+    .practice-steps { font-size: 0.78rem; color: var(--mid); font-weight: 300; line-height: 1.7; padding-left: 14px; border-left: 2px solid rgba(126,181,166,0.3); }
+    .practice-steps p { margin-bottom: 3px; }
+
+    /* TESTIMONIALS */
+    .testimonials-section { padding: 100px 6%; background: var(--cream); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .testimonial-card { background: var(--white); border-radius: 20px; padding: 36px; border: 1px solid rgba(126,181,166,0.12); box-shadow: 0 4px 20px rgba(44,62,53,0.05); }
+    .stars { color: var(--sage); font-size: 1rem; margin-bottom: 16px; letter-spacing: 2px; }
+    .testimonial-text { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; font-weight: 300; line-height: 1.75; color: var(--deep); margin-bottom: 20px; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .author-name { font-size: 0.82rem; font-weight: 500; color: var(--deep); }
+    .author-role { font-size: 0.72rem; color: var(--mid); font-weight: 300; }
+
+    /* NEWSLETTER */
+    .newsletter-section { padding: 80px 6%; background: var(--deep); text-align: center; }
+    .newsletter-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; color: var(--cream); margin-bottom: 12px; }
+    .newsletter-section h2 em { color: var(--sage); }
+    .newsletter-section > p { font-size: 0.88rem; color: rgba(247,243,238,0.55); margin-bottom: 36px; font-weight: 300; }
+    .newsletter-form { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; max-width: 520px; margin: 0 auto; }
+    .newsletter-form input { flex: 1 1 220px; padding: 14px 20px; border-radius: 40px; border: 1px solid rgba(126,181,166,0.3); background: rgba(247,243,238,0.08); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 300; outline: none; }
+    .newsletter-form input::placeholder { color: rgba(247,243,238,0.4); }
+    .newsletter-form input:focus { border-color: var(--sage); }
+    .newsletter-form button { background: var(--sage); color: #fff; padding: 14px 28px; border-radius: 40px; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'Jost', sans-serif; transition: background 0.3s, transform 0.2s; }
+    .newsletter-form button:hover { background: #6aa394; transform: translateY(-2px); }
+    .newsletter-note { font-size: 0.7rem; color: rgba(247,243,238,0.35); margin-top: 14px; }
+
+    /* MOOD */
+    #community { padding: 80px 6%; background: var(--deep); text-align: center; }
+    #community .eyebrow { color: var(--sage); }
+    #community h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; color: var(--cream); margin-bottom: 12px; }
+    #community h2 em { color: var(--sage); }
+    #community > p { font-size: 0.88rem; color: rgba(247,243,238,0.55); margin-bottom: 42px; font-weight: 300; }
+    .moods { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+    .mood-item { text-align: center; cursor: pointer; }
+    .mood-emoji { font-size: 2.6rem; display: block; transition: transform 0.3s, filter 0.3s; filter: grayscale(20%); }
+    .mood-item:hover .mood-emoji, .mood-item.selected .mood-emoji { transform: scale(1.35); filter: none; }
+    .mood-item.dimmed .mood-emoji { filter: grayscale(80%); opacity: 0.4; }
+    .mood-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(247,243,238,0.45); margin-top: 6px; display: block; }
+    .mood-response { background: rgba(126,181,166,0.15); border-radius: 12px; padding: 18px 32px; display: inline-block; border-left: 3px solid var(--sage); animation: fadeUp 0.4s ease; max-width: 600px; }
+    .mood-response p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--cream); line-height: 1.7; }
+    .hidden { display: none !important; }
+
+    /* FAQ */
+    .faq-section { padding: 100px 6%; background: var(--white); }
+    .faq-list { max-width: 740px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid rgba(126,181,166,0.2); }
+    .faq-question { padding: 22px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 400; color: var(--deep); }
+    .faq-question:hover { color: var(--sage); }
+    .faq-arrow { font-size: 1.1rem; transition: transform 0.3s; color: var(--sage); }
+    .faq-answer { font-size: 0.88rem; line-height: 1.85; color: var(--mid); font-weight: 300; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+    .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 20px; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+    /* FOOTER */
+    footer { background: #1e2e27; padding: 60px 6% 40px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--cream); margin-bottom: 14px; }
+    .footer-logo span { color: var(--sage); font-style: italic; }
+    .footer-about { font-size: 0.82rem; line-height: 1.8; color: rgba(247,243,238,0.45); font-weight: 300; max-width: 260px; margin-bottom: 16px; }
+    .footer-disclaimer { font-size: 0.7rem; color: rgba(247,243,238,0.22); font-weight: 300; }
+    .footer-col h4 { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage); font-weight: 400; margin-bottom: 18px; }
+    .footer-col a { display: block; text-decoration: none; font-size: 0.82rem; color: rgba(247,243,238,0.45); font-weight: 300; margin-bottom: 10px; transition: color 0.3s; }
+    .footer-col a:hover { color: var(--cream); }
+    .footer-bottom { border-top: 1px solid rgba(247,243,238,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: 0.72rem; color: rgba(247,243,238,0.25); font-weight: 300; }
+    .crisis-box { background: rgba(126,181,166,0.12); border-radius: 12px; padding: 14px 22px; border-left: 3px solid var(--sage); }
+    .crisis-box strong { color: var(--sage); font-size: 0.78rem; font-weight: 400; }
+    .crisis-box p { font-size: 0.75rem; color: rgba(247,243,238,0.55); font-weight: 300; margin-top: 4px; }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(44,62,53,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); animation: fadeUp 0.3s ease; }
+    .modal-box { background: var(--white); border-radius: 24px; padding: 48px; max-width: 520px; width: 100%; position: relative; box-shadow: 0 40px 80px rgba(44,62,53,0.2); max-height: 90vh; overflow-y: auto; }
+    .modal-close { position: absolute; top: 20px; right: 24px; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--mid); }
+    .modal-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--deep); margin-bottom: 12px; }
+    .modal-box p { font-size: 0.88rem; line-height: 1.8; color: var(--mid); font-weight: 300; margin-bottom: 16px; }
+    .modal-box ul { list-style: none; margin-bottom: 24px; }
+    .modal-box ul li { font-size: 0.84rem; color: var(--mid); font-weight: 300; padding: 5px 0 5px 20px; position: relative; line-height: 1.6; }
+    .modal-box ul li::before { content: '✦'; position: absolute; left: 0; color: var(--sage); font-size: 0.55rem; top: 9px; }
+    .modal-tag { display: inline-block; background: rgba(126,181,166,0.15); color: var(--sage); padding: 4px 14px; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; margin-bottom: 20px; }
+
+    @keyframes riseIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes floatUp { 0%, 100% { transform: translateY(-50%) translateY(0); } 50% { transform: translateY(-50%) translateY(-14px); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .floating-card { display: none; } .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">bloom<span>well</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#mindfulness">Pillars</a></li>
+    <li><a href="#movement">Breathwork</a></li>
+    <li><a href="#nutrition">Practices</a></li>
+    <li><a href="#community">Check-In</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('movement').scrollIntoView({behavior:'smooth'})">Begin</button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+  <div class="hero-content">
+    <p class="eyebrow">A sanctuary for your whole self</p>
+    <h1>Nourish your<br/><em>mind, body</em><br/>&amp; spirit.</h1>
+    <p class="hero-sub">Evidence-based practices, gentle guidance, and a community that holds space for every version of you — on every kind of day.</p>
+    <div class="btn-group">
+      <button class="btn-primary" onclick="document.getElementById('nutrition').scrollIntoView({behavior:'smooth'})">Explore Practices</button>
+      <button class="btn-ghost" onclick="document.getElementById('mindfulness').scrollIntoView({behavior:'smooth'})">Our Approach</button>
+    </div>
+  </div>
+  <div class="floating-card">
+    <div class="icon">🌿</div>
+    <p>breathe deeply</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">MBSR</div><div class="stat-label">Mindfulness-Based Stress Reduction — clinically validated</div></div>
+  <div class="stat"><div class="stat-num">CBT</div><div class="stat-label">Cognitive Behavioural techniques — peer-reviewed basis</div></div>
+  <div class="stat"><div class="stat-num">4</div><div class="stat-label">Evidence-informed pillars of holistic wellbeing</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Practitioner-reviewed content, always</div></div>
+</div>
+
+<!-- EVIDENCE COMMITMENT BANNER -->
+<div style="background:var(--white);border-top:1px solid rgba(126,181,166,0.15);border-bottom:1px solid rgba(126,181,166,0.15);padding:36px 6%;display:flex;align-items:center;gap:48px;flex-wrap:wrap;justify-content:center;">
+  <div style="display:flex;align-items:center;gap:14px;flex:1;min-width:220px;max-width:340px;">
+    <div style="width:48px;height:48px;border-radius:50%;background:rgba(126,181,166,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🔬</div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--deep);margin-bottom:3px;">Peer-reviewed foundations</div>
+      <div style="font-size:0.76rem;color:var(--mid);font-weight:300;line-height:1.55;">Every practice is grounded in published clinical or psychological research.</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:14px;flex:1;min-width:220px;max-width:340px;">
+    <div style="width:48px;height:48px;border-radius:50%;background:rgba(168,197,160,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🩺</div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--deep);margin-bottom:3px;">Practitioner-reviewed content</div>
+      <div style="font-size:0.76rem;color:var(--mid);font-weight:300;line-height:1.55;">All content is reviewed by licensed therapists, nutritionists, and certified yoga instructors before publication.</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:14px;flex:1;min-width:220px;max-width:340px;">
+    <div style="width:48px;height:48px;border-radius:50%;background:rgba(212,184,150,0.12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">📋</div>
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--deep);margin-bottom:3px;">Honest, bounded claims</div>
+      <div style="font-size:0.76rem;color:var(--mid);font-weight:300;line-height:1.55;">We do not overstate outcomes. Where evidence is emerging, we say so. We never replace professional medical care.</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE BANNER -->
+<section class="quote-section">
+  <p class="quote-text" id="quoteText">"Mindfulness means paying attention in a particular way: on purpose, in the present moment, and non-judgmentally."</p>
+  <p class="quote-author" id="quoteAuthor">— Jon Kabat-Zinn, PhD — founder of Mindfulness-Based Stress Reduction (MBSR)</p>
+  <div class="quote-dots">
+    <div class="qdot active" onclick="setQuote(0)"></div>
+    <div class="qdot" onclick="setQuote(1)"></div>
+    <div class="qdot" onclick="setQuote(2)"></div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section id="mindfulness">
+  <div class="section-header">
+    <p class="eyebrow">The four pillars</p>
+    <h2>Wellbeing, <em>whole</em> and complete</h2>
+    <p>True wellness isn't one-dimensional. Drawing on research in psychology, exercise science, nutritional medicine, and mindfulness, we support your mental, physical, emotional, and nutritional health as one interconnected system. Click any pillar to explore the evidence behind it.</p>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar-card" onclick="openModal('mind')">
+      <div class="pillar-icon" style="background:rgba(126,181,166,0.15)">🧘</div>
+      <h3>Mind</h3>
+      <p>Stress, anxiety, and mental fatigue are real. Our mindfulness tools — including guided meditations, breathwork exercises, and sleep rituals — give you practical ways to find calm, clarity, and rest every single day.</p>
+      <div class="tags">
+        <span class="tag" style="background:rgba(126,181,166,0.15);color:#7EB5A6">Meditation</span>
+        <span class="tag" style="background:rgba(126,181,166,0.15);color:#7EB5A6">Breathwork</span>
+        <span class="tag" style="background:rgba(126,181,166,0.15);color:#7EB5A6">Sleep</span>
+      </div>
+    </div>
+    <div class="pillar-card" onclick="openModal('body')">
+      <div class="pillar-icon" style="background:rgba(168,197,160,0.15)">🌿</div>
+      <h3>Body</h3>
+      <p>Movement is medicine. Whether you're a complete beginner or an experienced mover, our gentle yoga flows, stretching routines, and strength guides meet you exactly where you are — no gym required.</p>
+      <div class="tags">
+        <span class="tag" style="background:rgba(168,197,160,0.15);color:#7aab72">Yoga</span>
+        <span class="tag" style="background:rgba(168,197,160,0.15);color:#7aab72">Stretching</span>
+        <span class="tag" style="background:rgba(168,197,160,0.15);color:#7aab72">Strength</span>
+      </div>
+    </div>
+    <div class="pillar-card" onclick="openModal('soul')">
+      <div class="pillar-icon" style="background:rgba(212,184,150,0.18)">☀️</div>
+      <h3>Soul</h3>
+      <p>Inner wellbeing comes from connection — to yourself and others. Our journaling prompts, gratitude practices, and community spaces help you build emotional resilience and a deeper sense of purpose.</p>
+      <div class="tags">
+        <span class="tag" style="background:rgba(212,184,150,0.2);color:#b8905a">Journaling</span>
+        <span class="tag" style="background:rgba(212,184,150,0.2);color:#b8905a">Gratitude</span>
+        <span class="tag" style="background:rgba(212,184,150,0.2);color:#b8905a">Community</span>
+      </div>
+    </div>
+    <div class="pillar-card" onclick="openModal('nourish')">
+      <div class="pillar-icon" style="background:rgba(181,201,168,0.18)">🍃</div>
+      <h3>Nourish</h3>
+      <p>Food is fuel and joy. Our plant-forward recipes, hydration guides, and mindful eating practices help you build a warm, guilt-free relationship with what you eat — celebrating nourishment, not restriction.</p>
+      <div class="tags">
+        <span class="tag" style="background:rgba(181,201,168,0.2);color:#6a9a5e">Recipes</span>
+        <span class="tag" style="background:rgba(181,201,168,0.2);color:#6a9a5e">Nutrition</span>
+        <span class="tag" style="background:rgba(181,201,168,0.2);color:#6a9a5e">Hydration</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BREATHWORK -->
+<section id="movement">
+  <div class="breath-layout">
+    <div class="breath-copy">
+      <p class="eyebrow" style="animation:none">Try right now</p>
+      <h2>A moment to<br/><em>breathe</em></h2>
+      <p>The 4-4-6 breathing pattern — a form of slow-paced, controlled breathing — activates the parasympathetic nervous system, which research shows can help reduce physiological markers of stress including heart rate and cortisol. Studies published in journals including <em>Frontiers in Psychology</em> support its use as an accessible, evidence-informed tool for stress and anxiety relief.</p>
+      <ul class="breath-tips">
+        <li>Find a comfortable seated position and gently close your eyes</li>
+        <li>Inhale slowly and fully through your nose for 4 counts</li>
+        <li>Hold your breath gently at the top for 4 counts</li>
+        <li>Exhale completely through your mouth for 6 counts</li>
+        <li>Repeat for 3 to 5 full cycles for the best effect</li>
+      </ul>
+      <button class="breath-btn" id="breathBtn" onclick="toggleBreath()">Begin Breathing</button>
+    </div>
+    <div class="breath-visual">
+      <div class="breath-rings">
+        <div class="ring ring3" id="ring3"></div>
+        <div class="ring ring2" id="ring2"></div>
+        <div class="ring ring1" id="ring1"></div>
+        <div class="breath-label">
+          <p id="breathPhaseLabel">ready</p>
+          <span id="breathCountLabel"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRACTICES -->
+<section id="nutrition">
+  <div class="section-header">
+    <p class="eyebrow">Guided practices</p>
+    <h2>Begin wherever <em>you are</em></h2>
+    <p>Each practice is designed to be accessible, evidence-informed, and gentle enough for any day — even the hard ones. No experience required. Just show up as you are.</p>
+  </div>
+  <div class="practices-grid">
+
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-icon">🌅</div>
+        <div style="flex:1">
+          <div class="practice-top"><span class="practice-title">Morning Breath Reset</span><span class="practice-time">5 min</span></div>
+          <span class="tag" style="background:rgba(126,181,166,0.15);color:#5a8a7a">Breathwork</span>
+        </div>
+      </div>
+      <p class="practice-desc">Start your day with intention. Slow, controlled breathing in the morning has been shown in clinical research to activate the parasympathetic nervous system, reducing perceived stress and supporting sustained focus throughout the day.</p>
+      <div class="practice-steps">
+        <p>① Sit upright, hands resting on your knees</p>
+        <p>② Take 3 slow, deep cleansing breaths</p>
+        <p>③ Begin the 4-4-6 pattern for 5 full cycles</p>
+        <p>④ Close by setting one quiet word of intention</p>
+      </div>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-icon">🌲</div>
+        <div style="flex:1">
+          <div class="practice-top"><span class="practice-title">Forest Walk Meditation</span><span class="practice-time">15 min</span></div>
+          <span class="tag" style="background:rgba(126,181,166,0.15);color:#5a8a7a">Meditation</span>
+        </div>
+      </div>
+      <p class="practice-desc">A guided visualisation grounded in nature therapy (shinrin-yoku) research. Studies, including work published in <em>Environmental Health and Preventive Medicine</em>, indicate that nature-based imagery practices are associated with reduced stress responses, lower reported anxiety, and improved mood.</p>
+      <div class="practice-steps">
+        <p>① Find a quiet space and gently close your eyes</p>
+        <p>② Follow the guided forest visualisation audio</p>
+        <p>③ Engage all five senses within the scene</p>
+        <p>④ Return slowly with three grounding breaths</p>
+      </div>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-icon">🌙</div>
+        <div style="flex:1">
+          <div class="practice-top"><span class="practice-title">Gentle Evening Yoga</span><span class="practice-time">20 min</span></div>
+          <span class="tag" style="background:rgba(168,197,160,0.2);color:#6a9a5e">Movement</span>
+        </div>
+      </div>
+      <p class="practice-desc">Restorative yoga in the evening is supported by research showing that slow, parasympathetic-activating movement reduces cortisol, improves sleep onset, and decreases musculoskeletal tension — particularly for those with desk-based or sedentary routines.</p>
+      <div class="practice-steps">
+        <p>① Child's pose — hold for 2 minutes</p>
+        <p>② Seated forward fold — hold for 3 minutes</p>
+        <p>③ Supine spinal twist, both sides — 4 minutes</p>
+        <p>④ Legs up the wall — 5 minutes</p>
+        <p>⑤ Savasana (full rest) — 6 minutes</p>
+      </div>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-icon">📓</div>
+        <div style="flex:1">
+          <div class="practice-top"><span class="practice-title">Gratitude Journaling</span><span class="practice-time">10 min</span></div>
+          <span class="tag" style="background:rgba(212,184,150,0.2);color:#b8905a">Mindfulness</span>
+        </div>
+      </div>
+      <p class="practice-desc">Supported by decades of research in positive psychology — including studies by Dr Martin Seligman and colleagues — regular gratitude journaling is consistently associated with improved mood, greater life satisfaction, and increased psychological resilience over time.</p>
+      <div class="practice-steps">
+        <p>① Write 3 things you are genuinely grateful for</p>
+        <p>② Name one person who made a difference today</p>
+        <p>③ Note something your body did well for you</p>
+        <p>④ Capture one small joy you almost missed</p>
+      </div>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-icon">✨</div>
+        <div style="flex:1">
+          <div class="practice-top"><span class="practice-title">Body Scan Release</span><span class="practice-time">8 min</span></div>
+          <span class="tag" style="background:rgba(126,181,166,0.15);color:#5a8a7a">Relaxation</span>
+        </div>
+      </div>
+      <p class="practice-desc">Progressive muscle relaxation and body scan techniques are well-established in clinical research. A 2019 meta-analysis in <em>JAMA Internal Medicine</em> found mindfulness practices including body scans to be effective at reducing symptoms of anxiety, depression, and pain-related distress.</p>
+      <div class="practice-steps">
+        <p>① Lie flat on your back, arms soft at your sides</p>
+        <p>② Begin at the very crown of your head</p>
+        <p>③ Scan slowly downward, softening each area</p>
+        <p>④ Complete at the soles of both feet</p>
+      </div>
+    </div>
+
+    <div class="practice-card">
+      <div class="practice-header">
+        <div class="practice-icon">🥗</div>
+        <div style="flex:1">
+          <div class="practice-top"><span class="practice-title">Nourishing Bowl Guide</span><span class="practice-time">12 min</span></div>
+          <span class="tag" style="background:rgba(181,201,168,0.2);color:#6a9a5e">Nutrition</span>
+        </div>
+      </div>
+      <p class="practice-desc">Based on the Harvard Healthy Eating Plate model and current dietary guidelines, this balanced plate approach emphasises whole foods, adequate fibre, and varied micronutrients — a pattern consistently linked in research to sustained energy and long-term metabolic health.</p>
+      <div class="practice-steps">
+        <p>① One quarter: whole grains or starchy vegetables</p>
+        <p>② One quarter: quality protein (plant or animal)</p>
+        <p>③ One half: colourful, seasonal vegetables</p>
+        <p>④ Finish with healthy fats, herbs, and a squeeze of lemon</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESEARCH RESOURCES -->
+<section class="testimonials-section">
+  <div class="section-header">
+    <p class="eyebrow">Evidence & research</p>
+    <h2>Explore the <em>science</em> behind wellness</h2>
+    <p>Our practices are rooted in evidence. Below are trusted institutions and databases where you can explore the research that informs everything we do — from breathwork to nutrition to mindfulness.</p>
+  </div>
+  <div class="testimonials-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+
+    <a href="https://www.ncbi.nlm.nih.gov/pmc/" target="_blank" rel="noopener noreferrer" class="testimonial-card" style="text-decoration:none;display:block;transition:transform 0.3s,box-shadow 0.3s;">
+      <div style="font-size:2rem;margin-bottom:12px">🔬</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--deep);margin-bottom:8px">PubMed Central</div>
+      <p style="font-size:0.87rem;line-height:1.75;color:var(--mid);font-weight:300;margin-bottom:14px">A free, full-text archive of biomedical and life sciences literature maintained by the NIH. Search thousands of peer-reviewed studies on meditation, breathwork, nutrition, and mental health.</p>
+      <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);font-weight:400">ncbi.nlm.nih.gov →</span>
+    </a>
+
+    <a href="https://www.who.int/health-topics/mental-health" target="_blank" rel="noopener noreferrer" class="testimonial-card" style="text-decoration:none;display:block;transition:transform 0.3s,box-shadow 0.3s;">
+      <div style="font-size:2rem;margin-bottom:12px">🌍</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--deep);margin-bottom:8px">World Health Organization</div>
+      <p style="font-size:0.87rem;line-height:1.75;color:var(--mid);font-weight:300;margin-bottom:14px">The WHO's mental health hub covers global research, policy guidelines, and evidence-based recommendations on wellbeing, stress, sleep, and physical activity across all life stages.</p>
+      <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);font-weight:400">who.int →</span>
+    </a>
+
+    <a href="https://www.health.harvard.edu" target="_blank" rel="noopener noreferrer" class="testimonial-card" style="text-decoration:none;display:block;transition:transform 0.3s,box-shadow 0.3s;">
+      <div style="font-size:2rem;margin-bottom:12px">🏛️</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--deep);margin-bottom:8px">Harvard Health Publishing</div>
+      <p style="font-size:0.87rem;line-height:1.75;color:var(--mid);font-weight:300;margin-bottom:14px">Expert-reviewed articles from Harvard Medical School on mindfulness, nutrition, exercise, and emotional health. Accessible, trustworthy, and regularly updated with the latest findings.</p>
+      <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);font-weight:400">health.harvard.edu →</span>
+    </a>
+
+    <a href="https://www.nimh.nih.gov/health" target="_blank" rel="noopener noreferrer" class="testimonial-card" style="text-decoration:none;display:block;transition:transform 0.3s,box-shadow 0.3s;">
+      <div style="font-size:2rem;margin-bottom:12px">🧠</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--deep);margin-bottom:8px">National Institute of Mental Health</div>
+      <p style="font-size:0.87rem;line-height:1.75;color:var(--mid);font-weight:300;margin-bottom:14px">The leading US federal agency for mental health research. Find in-depth resources on anxiety, stress, depression, and evidence-based therapies including mindfulness-based approaches.</p>
+      <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);font-weight:400">nimh.nih.gov →</span>
+    </a>
+
+    <a href="https://www.mayoclinic.org/healthy-lifestyle" target="_blank" rel="noopener noreferrer" class="testimonial-card" style="text-decoration:none;display:block;transition:transform 0.3s,box-shadow 0.3s;">
+      <div style="font-size:2rem;margin-bottom:12px">🩺</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--deep);margin-bottom:8px">Mayo Clinic — Healthy Lifestyle</div>
+      <p style="font-size:0.87rem;line-height:1.75;color:var(--mid);font-weight:300;margin-bottom:14px">Clinician-reviewed guides on stress management, sleep, fitness, and balanced nutrition — translating complex research into clear, practical guidance for everyday life.</p>
+      <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);font-weight:400">mayoclinic.org →</span>
+    </a>
+
+    <a href="https://www.psychologytoday.com/us/basics/mindfulness" target="_blank" rel="noopener noreferrer" class="testimonial-card" style="text-decoration:none;display:block;transition:transform 0.3s,box-shadow 0.3s;">
+      <div style="font-size:2rem;margin-bottom:12px">📚</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--deep);margin-bottom:8px">Psychology Today — Mindfulness</div>
+      <p style="font-size:0.87rem;line-height:1.75;color:var(--mid);font-weight:300;margin-bottom:14px">A comprehensive library of articles on mindfulness, emotional regulation, gratitude, and resilience written by practising therapists and researchers. A great starting point for deeper exploration.</p>
+      <span style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);font-weight:400">psychologytoday.com →</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <p class="eyebrow" style="color:var(--sage);animation:none;">Weekly Wellness Letter</p>
+  <h2>Gentle nudges for <em>your week</em></h2>
+  <p>One email every Sunday morning. A practice to try, a wholesome recipe to make, and a quiet thought to sit with. No overwhelm — just care delivered to your inbox.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="your@email.com" id="emailInput"/>
+    <button onclick="subscribeNewsletter()">Subscribe Free</button>
+  </div>
+  <p class="newsletter-note" id="newsletterMsg">We respect your inbox. Unsubscribe any time with one click. No spam, ever.</p>
+</section>
+
+<!-- MOOD CHECK-IN -->
+<section id="community">
+  <p class="eyebrow">Daily check-in</p>
+  <h2>How are you <em>really</em> feeling today?</h2>
+  <p>No judgment. No right answer. Just a moment to pause and notice. Your feelings are valid — all of them.</p>
+  <div class="moods">
+    <div class="mood-item" onclick="selectMood(0)"><span class="mood-emoji">😔</span><span class="mood-label">Struggling</span></div>
+    <div class="mood-item" onclick="selectMood(1)"><span class="mood-emoji">😐</span><span class="mood-label">Low</span></div>
+    <div class="mood-item" onclick="selectMood(2)"><span class="mood-emoji">🙂</span><span class="mood-label">Okay</span></div>
+    <div class="mood-item" onclick="selectMood(3)"><span class="mood-emoji">😊</span><span class="mood-label">Good</span></div>
+    <div class="mood-item" onclick="selectMood(4)"><span class="mood-emoji">🌟</span><span class="mood-label">Thriving</span></div>
+  </div>
+  <div class="mood-response hidden" id="moodResponse"><p id="moodMsg"></p></div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-header">
+    <p class="eyebrow">Common questions</p>
+    <h2>Everything you <em>need to know</em></h2>
+    <p>We believe in being open and transparent. Here are answers to the questions we hear most often from our community.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What does "evidence-based" actually mean on Bloomwell? <span class="faq-arrow">▾</span></div>
+      <div class="faq-answer">It means every practice on Bloomwell is grounded in peer-reviewed clinical or psychological research — not trends, personal anecdotes, or marketing. We draw on established frameworks: Mindfulness-Based Stress Reduction (MBSR) for meditation and breathwork; Cognitive Behavioural Therapy (CBT) principles for thought-based practices; Positive Psychology research (Dr Martin Seligman) for gratitude and journaling; Acceptance & Commitment Therapy (ACT) for values work; exercise physiology for movement; and the Harvard Healthy Eating Plate and WHO dietary guidelines for nutrition. We make only claims that research supports — and we never overstate certainty where evidence is still emerging.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Is Bloomwell suitable for complete beginners? <span class="faq-arrow">▾</span></div>
+      <div class="faq-answer">Absolutely — Bloomwell was built with beginners in mind first. Every practice uses plain language, step-by-step guidance, and no prior experience is needed. We meet you exactly where you are, whether this is your very first meditation or your hundredth.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Is this a replacement for professional medical or mental health care? <span class="faq-arrow">▾</span></div>
+      <div class="faq-answer">No — and we want to be completely clear about this. Bloomwell provides general wellness information and practices to support everyday wellbeing. It is not a substitute for medical advice, diagnosis, or treatment. If you are experiencing a mental or physical health condition, please consult a qualified professional. In a crisis, please call 988 (US) immediately.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">How much time do I need each day to see a benefit? <span class="faq-arrow">▾</span></div>
+      <div class="faq-answer">As little as 5 minutes can make a real difference. Our shortest practice — the Morning Breath Reset — takes just 5 minutes. We firmly believe that small, consistent acts of self-care compound into meaningful change over time. You don't need to do a lot. You just need to show up regularly. Start tiny.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Is my personal and health information kept private? <span class="faq-arrow">▾</span></div>
+      <div class="faq-answer">Yes — privacy is something we take very seriously, particularly with health-related data. We do not sell your information to third parties under any circumstances. Any data you share, including your email address and mood check-in responses, is handled with care and in full compliance with data protection regulations. You can delete your account at any time.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What makes Bloomwell different from other wellness apps? <span class="faq-arrow">▾</span></div>
+      <div class="faq-answer">We built Bloomwell without dark patterns, streak-based guilt, or engagement-maximising algorithms. There are no pushy notifications and no gamification that makes you feel bad for missing a day. Our philosophy is gentle, evidence-informed, and genuinely holistic — caring for your mind, body, soul, and nutrition as one whole, interconnected system.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">How is the content on Bloomwell developed? <span class="faq-arrow">▾</span></div>
+      <div class="faq-answer">All Bloomwell practices are developed with reference to peer-reviewed literature and reviewed by qualified practitioners — including licensed therapists, certified yoga instructors, registered nutritionists, and mindfulness teachers trained in MBSR. We reference recognised frameworks such as MBSR, CBT, Positive Psychology (Seligman), ACT, and the Harvard Healthy Eating Plate. We do not make claims that go beyond what published evidence supports, and we update content when new research emerges. Where evidence is still emerging, we say so clearly.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">bloom<span>well</span></div>
+      <p class="footer-about">A gentle, evidence-informed sanctuary for everyday wellbeing. We believe that small, consistent acts of self-care create lasting change — for your mind, body, and spirit. Everyone deserves access to this kind of support.</p>
+      <p class="footer-disclaimer">This website provides general wellness information only and is not a substitute for professional medical, psychological, or nutritional advice. Always consult a qualified professional for health concerns.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="#mindfulness">The Four Pillars</a>
+      <a href="#movement">Breathwork Tool</a>
+      <a href="#nutrition">Guided Practices</a>
+      <a href="#community">Daily Mood Check-In</a>
+      <a href="#">Research & Sources</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Bloomwell</a>
+      <a href="#">Our Approach</a>
+      <a href="#">Our Practitioners</a>
+      <a href="#">Press & Media</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Cookie Settings</a>
+      <a href="#">Accessibility Statement</a>
+      <a href="#" style="color:var(--sage);font-weight:400">Crisis Resources</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Bloomwell. Made with care for your wellbeing. All rights reserved.</p>
+    <div class="crisis-box">
+      <strong>Need immediate support?</strong>
+      <p>Call or text 988 — available 24 hours a day, 7 days a week</p>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div id="modalOverlay" class="modal-overlay hidden" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.add('hidden')">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+  // QUOTES
+  const quotes = [
+    { text: "Mindfulness means paying attention in a particular way: on purpose, in the present moment, and non-judgmentally.", author: "Jon Kabat-Zinn, PhD — founder of Mindfulness-Based Stress Reduction (MBSR)" },
+    { text: "The greatest weapon against stress is our ability to choose one thought over another.", author: "William James, MD — pioneering psychologist and physician" },
+    { text: "Gratitude is not only the greatest of virtues, but the parent of all others.", author: "Martin Seligman, PhD — founder of Positive Psychology" },
+  ];
+  let qIdx = 0;
+  function setQuote(i) {
+    qIdx = i;
+    const qt = document.getElementById('quoteText'), qa = document.getElementById('quoteAuthor');
+    qt.style.opacity = 0; qt.style.transform = 'translateY(8px)';
+    setTimeout(() => {
+      qt.textContent = '"' + quotes[i].text + '"';
+      qa.textContent = '— ' + quotes[i].author;
+      qt.style.transition = 'opacity 0.5s, transform 0.5s';
+      qt.style.opacity = 1; qt.style.transform = 'translateY(0)';
+    }, 300);
+    document.querySelectorAll('.qdot').forEach((d, j) => d.classList.toggle('active', i === j));
+  }
+  setInterval(() => setQuote((qIdx + 1) % quotes.length), 5500);
+
+  // BREATHWORK
+  let breathActive = false, breathInterval = null, countInterval = null, phaseIdx = 0;
+  const phases = [{ label: 'Inhale', duration: 4 }, { label: 'Hold', duration: 4 }, { label: 'Exhale', duration: 6 }];
+  function toggleBreath() {
+    breathActive = !breathActive;
+    const btn = document.getElementById('breathBtn');
+    if (breathActive) {
+      btn.textContent = 'Pause'; btn.classList.add('pause'); phaseIdx = 0; runPhase();
+    } else {
+      btn.textContent = 'Begin Breathing'; btn.classList.remove('pause');
+      clearTimeout(breathInterval); clearInterval(countInterval);
+      resetRings();
+      document.getElementById('breathPhaseLabel').textContent = 'ready';
+      document.getElementById('breathCountLabel').textContent = '';
+    }
+  }
+  function runPhase() {
+    if (!breathActive) return;
+    const p = phases[phaseIdx % phases.length];
+    document.getElementById('breathPhaseLabel').textContent = p.label;
+    let count = p.duration;
+    document.getElementById('breathCountLabel').textContent = count;
+    clearInterval(countInterval);
+    countInterval = setInterval(() => { count--; document.getElementById('breathCountLabel').textContent = Math.max(0, count); }, 1000);
+    animateRings(p.label);
+    breathInterval = setTimeout(() => { phaseIdx++; runPhase(); }, p.duration * 1000);
+  }
+  function animateRings(phase) {
+    const r1 = document.getElementById('ring1'), r2 = document.getElementById('ring2'), r3 = document.getElementById('ring3');
+    if (phase === 'Inhale') { r1.style.width = r1.style.height = '120px'; r2.style.width = r2.style.height = '200px'; r3.style.width = r3.style.height = '270px'; }
+    else if (phase === 'Exhale') { r1.style.width = r1.style.height = '70px'; r2.style.width = r2.style.height = '150px'; r3.style.width = r3.style.height = '230px'; }
+  }
+  function resetRings() {
+    const sizes = ['90px','170px','250px'];
+    ['ring1','ring2','ring3'].forEach((id, i) => { document.getElementById(id).style.width = document.getElementById(id).style.height = sizes[i]; });
+  }
+
+  // MOOD
+  const moodMessages = [
+    "We see you. It takes real courage to acknowledge this. Try the Body Scan Release — just 8 minutes, and it asks nothing of you except to lie down. You deserve gentleness right now. 🌿",
+    "Low days are a part of being fully human. A 5-minute breath reset can gently shift the energy without demanding anything. You don't have to feel better — just a little softer is enough. 🌅",
+    "Okay is more than enough. You showed up, and that matters. A short evening yoga flow or a quiet journal entry might warm the day a little. You're doing well by simply being here. 🌿",
+    "Good energy deserves to be honoured and remembered. Try the Gratitude Journal today — capture what's working so you can return to it on harder days. These moments matter. 📓",
+    "You are genuinely glowing today. Let this feeling ripple outward — write it down, call someone you love, or share it in our community. Thriving is worth celebrating openly. 🌟",
+  ];
+  function selectMood(i) {
+    document.querySelectorAll('.mood-item').forEach((el, j) => { el.classList.toggle('selected', i===j); el.classList.toggle('dimmed', i!==j); });
+    document.getElementById('moodMsg').textContent = moodMessages[i];
+    document.getElementById('moodResponse').classList.remove('hidden');
+  }
+
+  // FAQ
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // NEWSLETTER
+  function subscribeNewsletter() {
+    const email = document.getElementById('emailInput').value;
+    const msg = document.getElementById('newsletterMsg');
+    if (!email || !email.includes('@')) { msg.textContent = 'Please enter a valid email address.'; msg.style.color = '#D4736A'; return; }
+    msg.textContent = '🌿 Welcome to the community! Your first letter arrives this Sunday morning.';
+    msg.style.color = 'var(--sage)';
+    document.getElementById('emailInput').value = '';
+  }
+
+  // MODALS
+  const modalData = {
+    mind: {
+      icon: '🧘', tag: 'Mind Pillar', title: 'Mental Wellbeing',
+      body: 'Your mental health is the foundation of everything else. Our tools draw on Mindfulness-Based Stress Reduction (MBSR), cognitive behavioural principles, and sleep science — all areas with robust peer-reviewed evidence supporting their effectiveness for stress, anxiety, and mental fatigue.',
+      points: ['Guided meditations based on MBSR protocols (3–30 minutes)', 'Breathwork exercises with parasympathetic nervous system basis', 'Sleep hygiene guides grounded in sleep science research', 'Cognitive reframing exercises informed by CBT principles', 'Daily micro-practices for emotional regulation', 'Stress reduction techniques drawn from published MBSR literature']
+    },
+    body: {
+      icon: '🌿', tag: 'Body Pillar', title: 'Physical Wellbeing',
+      body: 'Physical activity and mindful movement have strong evidence bases for improving both physical and mental health. Our practices are informed by exercise physiology research and designed to be inclusive — accessible at any fitness level, age, or ability.',
+      points: ['Beginner-friendly yoga informed by restorative practice research', 'Bodyweight strength routines based on exercise physiology principles', 'Morning movement sequences (5–15 minutes) to reduce sedentary behaviour', 'Tension release practices for desk workers, supported by occupational health research', 'Walking meditations combining physical activity and mindfulness', 'Post-exercise recovery routines aligned with sports science recommendations']
+    },
+    soul: {
+      icon: '☀️', tag: 'Soul Pillar', title: 'Emotional & Inner Wellbeing',
+      body: 'Positive psychology research consistently identifies meaning, connection, and self-reflection as core contributors to life satisfaction and resilience. Our practices in this pillar draw on the work of researchers including Dr Martin Seligman and Dr Kristin Neff.',
+      points: ['Daily guided journaling with prompts drawn from positive psychology', 'Gratitude practices supported by Seligman & Csikszentmihalyi research', 'Values clarification exercises rooted in Acceptance & Commitment Therapy (ACT)', 'Self-compassion practices informed by Dr Kristin Neff\'s research', 'Seasonal reflection and intention-setting rituals', 'Practices for navigating grief and life transitions']
+    },
+    nourish: {
+      icon: '🍃', tag: 'Nourish Pillar', title: 'Nutritional Wellbeing',
+      body: 'Our nutritional guidance is aligned with evidence-based dietary frameworks including the Harvard Healthy Eating Plate and current WHO dietary guidelines. We focus on sustainable, whole-food patterns rather than restrictive or fad-based approaches.',
+      points: ['Plant-forward recipes aligned with WHO dietary recommendations', 'Hydration guidance based on established physiological research', 'Mindful eating practices supported by behavioural nutrition research', 'Anti-inflammatory food guidance based on peer-reviewed nutritional science', 'Practical meal preparation tips to support dietary adherence', 'Guidance on building a sustainable, non-restrictive relationship with food']
+    }
+  };
+  function openModal(key) {
+    const d = modalData[key];
+    document.getElementById('modalContent').innerHTML =
+      '<div style="font-size:2.5rem;margin-bottom:16px">' + d.icon + '</div>' +
+      '<span class="modal-tag">' + d.tag + '</span>' +
+      '<h3>' + d.title + '</h3>' +
+      '<p>' + d.body + '</p>' +
+      '<ul>' + d.points.map(p => '<li>' + p + '</li>').join('') + '</ul>' +
+      '<button class="btn-primary" onclick="document.getElementById(\'modalOverlay\').classList.add(\'hidden\');document.getElementById(\'nutrition\').scrollIntoView({behavior:\'smooth\'})">Explore Practices →</button>';
+    document.getElementById('modalOverlay').classList.remove('hidden');
+  }
+  function closeModal(e) {
+    if (e.target.id === 'modalOverlay') document.getElementById('modalOverlay').classList.add('hidden');
+  }
+</script>
+</body>
+</html>
